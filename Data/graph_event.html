@@ -1,0 +1,123 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1>./data/graph_even</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 900px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "BusinessEvent", "label": "BusinessEvent", "shape": "dot", "value": 560}, {"id": "BoardMeeting", "label": "BoardMeeting", "shape": "dot", "value": 80}, {"id": "Congress", "label": "Congress", "shape": "dot", "value": 80}, {"id": "ExecutiveBoardMeeting", "label": "ExecutiveBoardMeeting", "shape": "dot", "value": 80}, {"id": "Seminar", "label": "Seminar", "shape": "dot", "value": 80}, {"id": "TrainingWorkshop", "label": "TrainingWorkshop", "shape": "dot", "value": 80}, {"id": "WorkMeeting", "label": "WorkMeeting", "shape": "dot", "value": 80}, {"id": "Product", "label": "Product", "shape": "dot", "value": 2960}, {"id": "AccommodationProduct", "label": "AccommodationProduct", "shape": "dot", "value": 1680}, {"id": "Practice", "label": "Practice", "shape": "dot", "value": 880}, {"id": "Rental", "label": "Rental", "shape": "dot", "value": 240}, {"id": "Tasting", "label": "Tasting", "shape": "dot", "value": 80}, {"id": "Visit", "label": "Visit", "shape": "dot", "value": 80}, {"id": "SaleEvent", "label": "SaleEvent", "shape": "dot", "value": 480}, {"id": "BricABrac", "label": "BricABrac", "shape": "dot", "value": 80}, {"id": "FairOrShow", "label": "FairOrShow", "shape": "dot", "value": 80}, {"id": "GarageSale", "label": "GarageSale", "shape": "dot", "value": 80}, {"id": "Market", "label": "Market", "shape": "dot", "value": 80}, {"id": "OpenDay", "label": "OpenDay", "shape": "dot", "value": 80}, {"id": "SocialEvent", "label": "SocialEvent", "shape": "dot", "value": 560}, {"id": "Carnival", "label": "Carnival", "shape": "dot", "value": 80}, {"id": "LocalAnimation", "label": "LocalAnimation", "shape": "dot", "value": 80}, {"id": "Parade", "label": "Parade", "shape": "dot", "value": 80}, {"id": "PilgrimageAndProcession", "label": "PilgrimageAndProcession", "shape": "dot", "value": 80}, {"id": "ReligiousEvent", "label": "ReligiousEvent", "shape": "dot", "value": 80}, {"id": "TraditionalCelebration", "label": "TraditionalCelebration", "shape": "dot", "value": 80}, {"id": "SportsEvent", "label": "SportsEvent", "shape": "dot", "value": 480}, {"id": "Game", "label": "Game", "shape": "dot", "value": 80}, {"id": "Rally", "label": "Rally", "shape": "dot", "value": 80}, {"id": "Rambling", "label": "Rambling", "shape": "dot", "value": 80}, {"id": "SportsCompetition", "label": "SportsCompetition", "shape": "dot", "value": 80}, {"id": "SportsDemonstration", "label": "SportsDemonstration", "shape": "dot", "value": 80}, {"id": "Apartment", "label": "Apartment", "shape": "dot", "value": 80}, {"id": "CampingPitch", "label": "CampingPitch", "shape": "dot", "value": 80}, {"id": "House", "label": "House", "shape": "dot", "value": 80}, {"id": "Bed", "label": "Bed", "shape": "dot", "value": 80}, {"id": "Bubble", "label": "Bubble", "shape": "dot", "value": 80}, {"id": "Bungalow", "label": "Bungalow", "shape": "dot", "value": 80}, {"id": "Bungatoile", "label": "Bungatoile", "shape": "dot", "value": 80}, {"id": "CampingCar", "label": "CampingCar", "shape": "dot", "value": 80}, {"id": "Caravan", "label": "Caravan", "shape": "dot", "value": 80}, {"id": "CastleAndPrestigeMansion", "label": "CastleAndPrestigeMansion", "shape": "dot", "value": 80}, {"id": "Chalet", "label": "Chalet", "shape": "dot", "value": 80}, {"id": "HotelSuite", "label": "HotelSuite", "shape": "dot", "value": 80}, {"id": "HouseBoat", "label": "HouseBoat", "shape": "dot", "value": 80}, {"id": "Hut", "label": "Hut", "shape": "dot", "value": 80}, {"id": "LeisureChalet", "label": "LeisureChalet", "shape": "dot", "value": 80}, {"id": "Room", "label": "Room", "shape": "dot", "value": 80}, {"id": "Tent", "label": "Tent", "shape": "dot", "value": 80}, {"id": "Tipi", "label": "Tipi", "shape": "dot", "value": 80}, {"id": "TreeHouse", "label": "TreeHouse", "shape": "dot", "value": 80}, {"id": "Yurt", "label": "Yurt", "shape": "dot", "value": 80}, {"id": "Concert", "label": "Concert", "shape": "dot", "value": 160}, {"id": "MusicEvent", "label": "MusicEvent", "shape": "dot", "value": 80}, {"id": "CulturalEvent", "label": "CulturalEvent", "shape": "dot", "value": 1520}, {"id": "DanceEvent", "label": "DanceEvent", "shape": "dot", "value": 80}, {"id": "Festival", "label": "Festival", "shape": "dot", "value": 80}, {"id": "ScreeningEvent", "label": "ScreeningEvent", "shape": "dot", "value": 80}, {"id": "TheaterEvent", "label": "TheaterEvent", "shape": "dot", "value": 80}, {"id": "ArtistSigning", "label": "ArtistSigning", "shape": "dot", "value": 80}, {"id": "ChildrensEvent", "label": "ChildrensEvent", "shape": "dot", "value": 80}, {"id": "CircusEvent", "label": "CircusEvent", "shape": "dot", "value": 80}, {"id": "Commemoration", "label": "Commemoration", "shape": "dot", "value": 80}, {"id": "Conference", "label": "Conference", "shape": "dot", "value": 80}, {"id": "Exhibition", "label": "Exhibition", "shape": "dot", "value": 80}, {"id": "Harvest", "label": "Harvest", "shape": "dot", "value": 80}, {"id": "Opera", "label": "Opera", "shape": "dot", "value": 160}, {"id": "Reading", "label": "Reading", "shape": "dot", "value": 80}, {"id": "Recital", "label": "Recital", "shape": "dot", "value": 160}, {"id": "ShowEvent", "label": "ShowEvent", "shape": "dot", "value": 80}, {"id": "VisualArtsEvent", "label": "VisualArtsEvent", "shape": "dot", "value": 80}, {"id": "EntertainmentAndEvent", "label": "EntertainmentAndEvent", "shape": "dot", "value": 3760}, {"id": "Event", "label": "Event", "shape": "dot", "value": 80}, {"id": "AccompaniedPractice", "label": "AccompaniedPractice", "shape": "dot", "value": 80}, {"id": "Competition", "label": "Competition", "shape": "dot", "value": 80}, {"id": "Course", "label": "Course", "shape": "dot", "value": 80}, {"id": "DevelopmentCourse", "label": "DevelopmentCourse", "shape": "dot", "value": 80}, {"id": "FirstPractice", "label": "FirstPractice", "shape": "dot", "value": 80}, {"id": "FreePractice", "label": "FreePractice", "shape": "dot", "value": 80}, {"id": "IntroductionCourse", "label": "IntroductionCourse", "shape": "dot", "value": 80}, {"id": "MultiActivity", "label": "MultiActivity", "shape": "dot", "value": 80}, {"id": "Traineeship", "label": "Traineeship", "shape": "dot", "value": 80}, {"id": "EquipmentRental", "label": "EquipmentRental", "shape": "dot", "value": 80}, {"id": "NonHousingRealEstateRental", "label": "NonHousingRealEstateRental", "shape": "dot", "value": 80}, {"id": "Tour", "label": "Tour", "shape": "dot", "value": 640}, {"id": "CyclingTour", "label": "CyclingTour", "shape": "dot", "value": 80}, {"id": "FluvialTour", "label": "FluvialTour", "shape": "dot", "value": 80}, {"id": "HorseTour", "label": "HorseTour", "shape": "dot", "value": 80}, {"id": "RoadTour", "label": "RoadTour", "shape": "dot", "value": 80}, {"id": "UnderwaterRoute", "label": "UnderwaterRoute", "shape": "dot", "value": 80}, {"id": "WalkingTour", "label": "WalkingTour", "shape": "dot", "value": 80}, {"id": "OrderedList", "label": "OrderedList", "shape": "dot", "value": 80}, {"id": "All", "label": "All", "shape": "dot", "value": 7440}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": "BusinessEvent", "to": "BoardMeeting"}, {"arrows": "to", "from": "BusinessEvent", "to": "Congress"}, {"arrows": "to", "from": "BusinessEvent", "to": "ExecutiveBoardMeeting"}, {"arrows": "to", "from": "BusinessEvent", "to": "Seminar"}, {"arrows": "to", "from": "BusinessEvent", "to": "TrainingWorkshop"}, {"arrows": "to", "from": "BusinessEvent", "to": "WorkMeeting"}, {"arrows": "to", "from": "Product", "to": "AccommodationProduct"}, {"arrows": "to", "from": "Product", "to": "Practice"}, {"arrows": "to", "from": "Product", "to": "Rental"}, {"arrows": "to", "from": "Product", "to": "Tasting"}, {"arrows": "to", "from": "Product", "to": "Visit"}, {"arrows": "to", "from": "AccommodationProduct", "to": "Apartment"}, {"arrows": "to", "from": "AccommodationProduct", "to": "CampingPitch"}, {"arrows": "to", "from": "AccommodationProduct", "to": "House"}, {"arrows": "to", "from": "AccommodationProduct", "to": "Bed"}, {"arrows": "to", "from": "AccommodationProduct", "to": "Bubble"}, {"arrows": "to", "from": "AccommodationProduct", "to": "Bungalow"}, {"arrows": "to", "from": "AccommodationProduct", "to": "Bungatoile"}, {"arrows": "to", "from": "AccommodationProduct", "to": "CampingCar"}, {"arrows": "to", "from": "AccommodationProduct", "to": "Caravan"}, {"arrows": "to", "from": "AccommodationProduct", "to": "CastleAndPrestigeMansion"}, {"arrows": "to", "from": "AccommodationProduct", "to": "Chalet"}, {"arrows": "to", "from": "AccommodationProduct", "to": "HotelSuite"}, {"arrows": "to", "from": "AccommodationProduct", "to": "HouseBoat"}, {"arrows": "to", "from": "AccommodationProduct", "to": "Hut"}, {"arrows": "to", "from": "AccommodationProduct", "to": "LeisureChalet"}, {"arrows": "to", "from": "AccommodationProduct", "to": "Room"}, {"arrows": "to", "from": "AccommodationProduct", "to": "Tent"}, {"arrows": "to", "from": "AccommodationProduct", "to": "Tipi"}, {"arrows": "to", "from": "AccommodationProduct", "to": "TreeHouse"}, {"arrows": "to", "from": "AccommodationProduct", "to": "Yurt"}, {"arrows": "to", "from": "Practice", "to": "AccompaniedPractice"}, {"arrows": "to", "from": "Practice", "to": "Competition"}, {"arrows": "to", "from": "Practice", "to": "Course"}, {"arrows": "to", "from": "Practice", "to": "DevelopmentCourse"}, {"arrows": "to", "from": "Practice", "to": "FirstPractice"}, {"arrows": "to", "from": "Practice", "to": "FreePractice"}, {"arrows": "to", "from": "Practice", "to": "IntroductionCourse"}, {"arrows": "to", "from": "Practice", "to": "MultiActivity"}, {"arrows": "to", "from": "Practice", "to": "Tasting"}, {"arrows": "to", "from": "Practice", "to": "Traineeship"}, {"arrows": "to", "from": "Rental", "to": "EquipmentRental"}, {"arrows": "to", "from": "Rental", "to": "NonHousingRealEstateRental"}, {"arrows": "to", "from": "SaleEvent", "to": "BricABrac"}, {"arrows": "to", "from": "SaleEvent", "to": "FairOrShow"}, {"arrows": "to", "from": "SaleEvent", "to": "GarageSale"}, {"arrows": "to", "from": "SaleEvent", "to": "Market"}, {"arrows": "to", "from": "SaleEvent", "to": "OpenDay"}, {"arrows": "to", "from": "SocialEvent", "to": "Carnival"}, {"arrows": "to", "from": "SocialEvent", "to": "LocalAnimation"}, {"arrows": "to", "from": "SocialEvent", "to": "Parade"}, {"arrows": "to", "from": "SocialEvent", "to": "PilgrimageAndProcession"}, {"arrows": "to", "from": "SocialEvent", "to": "ReligiousEvent"}, {"arrows": "to", "from": "SocialEvent", "to": "TraditionalCelebration"}, {"arrows": "to", "from": "SportsEvent", "to": "Game"}, {"arrows": "to", "from": "SportsEvent", "to": "Rally"}, {"arrows": "to", "from": "SportsEvent", "to": "Rambling"}, {"arrows": "to", "from": "SportsEvent", "to": "SportsCompetition"}, {"arrows": "to", "from": "SportsEvent", "to": "SportsDemonstration"}, {"arrows": "to", "from": "Concert", "to": "MusicEvent"}, {"arrows": "to", "from": "CulturalEvent", "to": "DanceEvent"}, {"arrows": "to", "from": "CulturalEvent", "to": "Festival"}, {"arrows": "to", "from": "CulturalEvent", "to": "ScreeningEvent"}, {"arrows": "to", "from": "CulturalEvent", "to": "TheaterEvent"}, {"arrows": "to", "from": "CulturalEvent", "to": "ArtistSigning"}, {"arrows": "to", "from": "CulturalEvent", "to": "ChildrensEvent"}, {"arrows": "to", "from": "CulturalEvent", "to": "CircusEvent"}, {"arrows": "to", "from": "CulturalEvent", "to": "Commemoration"}, {"arrows": "to", "from": "CulturalEvent", "to": "Concert"}, {"arrows": "to", "from": "CulturalEvent", "to": "Conference"}, {"arrows": "to", "from": "CulturalEvent", "to": "Exhibition"}, {"arrows": "to", "from": "CulturalEvent", "to": "Harvest"}, {"arrows": "to", "from": "CulturalEvent", "to": "Opera"}, {"arrows": "to", "from": "CulturalEvent", "to": "Reading"}, {"arrows": "to", "from": "CulturalEvent", "to": "Recital"}, {"arrows": "to", "from": "CulturalEvent", "to": "ShowEvent"}, {"arrows": "to", "from": "CulturalEvent", "to": "VisualArtsEvent"}, {"arrows": "to", "from": "Opera", "to": "MusicEvent"}, {"arrows": "to", "from": "Recital", "to": "MusicEvent"}, {"arrows": "to", "from": "EntertainmentAndEvent", "to": "BusinessEvent"}, {"arrows": "to", "from": "EntertainmentAndEvent", "to": "SaleEvent"}, {"arrows": "to", "from": "EntertainmentAndEvent", "to": "SocialEvent"}, {"arrows": "to", "from": "EntertainmentAndEvent", "to": "SportsEvent"}, {"arrows": "to", "from": "EntertainmentAndEvent", "to": "CulturalEvent"}, {"arrows": "to", "from": "EntertainmentAndEvent", "to": "Event"}, {"arrows": "to", "from": "Tour", "to": "CyclingTour"}, {"arrows": "to", "from": "Tour", "to": "FluvialTour"}, {"arrows": "to", "from": "Tour", "to": "HorseTour"}, {"arrows": "to", "from": "Tour", "to": "RoadTour"}, {"arrows": "to", "from": "Tour", "to": "UnderwaterRoute"}, {"arrows": "to", "from": "Tour", "to": "WalkingTour"}, {"arrows": "to", "from": "Tour", "to": "OrderedList"}, {"arrows": "to", "from": "All", "to": "Tour"}, {"arrows": "to", "from": "All", "to": "Product"}, {"arrows": "to", "from": "All", "to": "EntertainmentAndEvent"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
