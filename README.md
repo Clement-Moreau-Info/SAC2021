@@ -13,25 +13,25 @@ Coding colaboration with [AlexChanson](https://github.com/AlexChanson)
 
 ## Contextual Edit Distance
 ------
-* CED.py
-* Context_function.py
-* Operator.py
-* dis_and_sim.py
+* `CED.py`
+* `Context_function.py`
+* `Operator.py`
+* `dis_and_sim.py`
 
 can be found in properly version in [this](https://github.com/Clement-Moreau-Info/CED) repository. Keep this version if you run SAC2021 experiments or see our Google Colab. 
 
 ## [DATAtourisme](https://framagit.org/datatourisme/ontology/) extraction
 
-* extract.py
-* graphs.py
-* onto2graph.py
+* `extract.py`
+* `graphs.py`
+* `onto2graph.py`
 
 and several files in /Data folder. 
 
 ## Artificial touristic profile generation
 
-* profiles.py
-* profiles_setting.xlsx
+* `profiles.py`
+* `profiles_setting.xlsx`
 
-.xlsx file details all weight and probabilities for sequences generation according to the psychological profiles created. 
+`.xlsx` file details all weight and probabilities for sequences generation according to the psychological profiles created. 
 
