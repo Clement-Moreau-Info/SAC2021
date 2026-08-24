@@ -1,22 +1,20 @@
-"""# Halkidi"""
+"""Semantic similarities for concepts and multi-valued sequence items."""
 
-import networkx as nx
-from functools import lru_cache
+from taxonomy import Taxonomy
 
 
-@lru_cache(maxsize=100000)
-def wu_palmer(x, y, Ontologie, rootnode="All"):
-    return (2.0 * nx.shortest_path_length(Ontologie, rootnode, nx.lowest_common_ancestor(Ontologie, x, y))) / (
-                nx.shortest_path_length(Ontologie, rootnode, x) + nx.shortest_path_length(Ontologie, rootnode, y))
+def wu_palmer(x, y, taxonomy: Taxonomy):
+    """Return taxonomy-aware Wu–Palmer similarity."""
+    return taxonomy.wu_palmer(x, y)
 
 
 # New stuff
-def halkidi(X, Y, delta, ontology):
+def halkidi(X, Y, delta, taxonomy):
     if len(X) == 0 or len(Y) == 0:
         return 0
     return 1.0 / 2 * (
-            1.0 / len(X) * sum(max(delta(x, y, ontology) for y in Y) for x in X) +
-            1.0 / len(Y) * sum(max(delta(x, y, ontology) for x in X) for y in Y)
+            1.0 / len(X) * sum(max(delta(x, y, taxonomy) for y in Y) for x in X) +
+            1.0 / len(Y) * sum(max(delta(x, y, taxonomy) for x in X) for y in Y)
     )
 
 
